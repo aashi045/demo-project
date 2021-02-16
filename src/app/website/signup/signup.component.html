@@ -1,4 +1,17 @@
-<form>
+<div *ngIf="alert" class="alert alert-success alert-dismissible fade show">
+  <strong>Success!</strong>User Created successfully
+  <button
+    type="button"
+    (click)="closeAlert()"
+    class="close"
+    data-dismiss="alert"
+    aria-label="close"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<form #addDetails="ngForm" (ngSubmit)="addUser(addDetails)" novalidate>
+  <!-- <div class="alert alert-warning" *ngIf="missingField">{{ Message }}</div> -->
   <h1>Signup Form</h1>
   <div class="form-row">
     <div class="form-group col-md-6">
@@ -6,17 +19,238 @@
       <input
         type="email"
         class="form-control"
-        id="first-name"
         placeholder="First Name"
+        name="first_name"
+        [(ngModel)]="addDetails.first_name"
+        value="firstName"
+        required
+        pattern="^[a-zA-Z]+$"
+        #firstName="ngModel"
+        [class.is-invalid]="firstName.invalid && firstName.touched"
+      />
+      <small [class.d-none]="firstName.valid || firstName.untouched"
+        >Name is Required</small
+      >
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">Last Name</label>
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Last Name"
+        value="lastName"
+        name="last_name"
+        [(ngModel)]="addDetails.last_name"
+        required
+        pattern="^[a-zA-Z]+$"
+        #lastName="ngModel"
+        [class.is-invalid]="lastName.invalid && lastName.touched"
+      />
+      <small [class.d-none]="lastName.valid || lastName.untouched"
+        >Last Name is Required</small
+      >
+      <!-- <div
+        class="alert alert-danger"
+        *ngIf="lastName.touched && !lastName.valid"
+      >
+        Enter valid last name
+      </div> -->
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Email</label>
+      <input
+        type="email"
+        name="email"
+        value="email"
+        [(ngModel)]="addDetails.email"
+        class="form-control"
+        placeholder="Email"
+        required
+        email
+        #email="ngModel"
+        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+        [class.is-invalid]="email.invalid && email.touched"
+      />
+
+      <div *ngIf="email.errors && (email.invalid || email.touched)">
+        <small class="text-danger" *ngIf="email.errors.required"
+          >Email is required</small
+        >
+        <small class="text-danger" *ngIf="email.errors.pattern"
+          >Enter valid email</small
+        >
+      </div>
+      <div class="error" *ngIf="email.invalid && email.errors.emailTaken">
+        This email has been taken, please use another one.
+      </div>
+      <!-- <div class="alert alert-danger" *ngIf="email.touched && !email.valid">
+        enter valid email
+      </div> -->
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">Create Password</label>
+      <input
+        type="password"
+        name="password"
+        value="Password"
+        [(ngModel)]="addDetails.password"
+        class="form-control"
+        placeholder="Password"
+        required
+        #password="ngModel"
+        [class.is-invalid]="password.invalid && password.touched"
+      />
+      <small [class.d-none]="password.valid || password.untouched"
+        >Password is Required</small
+      >
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputAddress">Address</label>
+    <input
+      type="text"
+      name="address"
+      value="Address"
+      [(ngModel)]="addDetails.address"
+      class="form-control"
+      placeholder="1234 Main St"
+      required
+      #address="ngModel"
+      [class.is-invalid]="address.invalid && address.touched"
+    />
+    <small [class.d-none]="address.valid || address.untouched"
+      >Address is Required</small
+    >
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputAddress">Mobile Number</label>
+      <input
+        type="text"
+        name="mobile_no"
+        value="Mobile_Number"
+        [(ngModel)]="addDetails.mobile_no"
+        class="form-control"
+        pattern="^[0-9]+$"
+        placeholder="Mobile Number"
+        required
+        #mobile_no="ngModel"
+        maxlength="10"
+        [class.is-invalid]="mobile_no.invalid && mobile_no.touched"
+      />
+      <div *ngIf="mobile_no.errors && (mobile_no.invalid || mobile_no.touched)">
+        <small class="text-danger" *ngIf="mobile_no.errors.required"
+          >Phone number is required</small
+        >
+        <small class="text-danger" *ngIf="mobile_no.errors.pattern"
+          >Phone number must be 10 digits</small
+        >
+      </div>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputCity">City</label>
+      <input
+        type="text"
+        class="form-control"
+        name="city"
+        value="city"
+        [(ngModel)]="addDetails.city"
+        required
+        #city="ngModel"
+        [class.is-invalid]="city.invalid && city.touched"
+      />
+      <small [class.d-none]="city.valid || city.untouched"
+        >City is required</small
+      >
+    </div>
+    <!-- <small [class.d-none]="mobile_no.valid || mobile_no.untouched"
+      >Phone number is required and must be 10 digits</small
+    > -->
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputState">State</label>
+      <select
+        class="form-control"
+        name="state"
+        value="state"
+        [(ngModel)]="addDetails.state"
+        required
+        #state="ngModel"
+        [class.is-invalid]="state.invalid && state.touched"
+      >
+        <option selected>UP</option>
+        <option>Bihar</option>
+        <option>Haryana</option>
+        <option>Kolkata</option>
+        <option>Mumbai</option>
+        <option>Jammu & Kashmir</option>
+      </select>
+      <small [class.d-none]="state.valid || state.untouched"
+        >State is Required</small
+      >
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputZip">Zip</label>
+      <input
+        type="text"
+        class="form-control"
+        name="zip"
+        value="zip"
+        [(ngModel)]="addDetails.zip"
+        #zip="ngModel"
+        required
+        pattern="^[0-9]+$"
+        maxlength="6"
+        [class.is-invalid]="zip.invalid && zip.touched"
+      />
+      <small [class.d-none]="zip.valid || zip.untouched"
+        >Enter 6 digit zip code</small
+      >
+    </div>
+  </div>
+
+  <button
+    type="submit"
+    class="btn btn-primary"
+    [disabled]="!addDetails.form.valid"
+  >
+    Sign in
+  </button>
+  <button type="submit" class="btn btn-primary m-2">
+    <a routerLink="../">Login</a>
+  </button>
+</form>
+
+<!-- <form #addDetails="ngForm" (ngSubmit)="addUser(addDetails)" novalidate>
+  <h1>Signup Form</h1>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">First Name</label>
+      <input
+        type="email"
+        class="form-control"
+        placeholder="First Name"
+        name="first_name"
+        [(ngModel)]="addDetails.first_name"
+        value="firstName"
+        pattern="^[a-zA-Z]+$"
+        required
       />
     </div>
     <div class="form-group col-md-6">
       <label for="inputPassword4">Last Name</label>
       <input
-        type="password"
+        type="text"
         class="form-control"
-        id="last-name"
         placeholder="Last Name"
+        value="lastName"
+        name="last_name"
+        [(ngModel)]="addDetails.last_name"
+        required
+        pattern="^[a-zA-Z]+$"
       />
     </div>
   </div>
@@ -25,17 +259,22 @@
       <label for="inputEmail4">Email</label>
       <input
         type="email"
+        name="email"
+        value="email"
+        [(ngModel)]="addDetails.email"
         class="form-control"
-        id="inputEmail4"
         placeholder="Email"
+        required
       />
     </div>
     <div class="form-group col-md-6">
       <label for="inputPassword4">Password</label>
       <input
         type="password"
+        name="password"
+        value="Password"
+        [(ngModel)]="addDetails.password"
         class="form-control"
-        id="inputPassword4"
         placeholder="Password"
       />
     </div>
@@ -44,45 +283,68 @@
     <label for="inputAddress">Address</label>
     <input
       type="text"
+      name="address"
+      value="Address"
+      [(ngModel)]="addDetails.address"
       class="form-control"
-      id="inputAddress"
       placeholder="1234 Main St"
+      required
+      #address="ngModel"
     />
   </div>
   <div class="form-group">
     <label for="inputAddress">Mobile Number</label>
     <input
       type="text"
+      name="mobile_no"
+      value="Mobile_Number"
+      [(ngModel)]="addDetails.mobile_no"
       class="form-control"
-      id="mobile-number"
+      pattern="^[0-9]+$"
       placeholder="Mobile Number"
+      required
+      #mobile_no="ngModel"
+      maxlength="10"
     />
   </div>
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="inputCity">City</label>
-      <input type="text" class="form-control" id="inputCity" />
+      <input
+        type="text"
+        class="form-control"
+        name="city"
+        value="city"
+        [(ngModel)]="addDetails.city"
+        required
+        #city="ngModel"
+      />
     </div>
     <div class="form-group col-md-4">
       <label for="inputState">State</label>
-      <select id="inputState" class="form-control">
-        <option selected>Choose...</option>
-        <option>...</option>
+      <select
+        class="form-control"
+        name="state"
+        value="state"
+        [(ngModel)]="addDetails.state"
+        required
+      >
+        <option selected>UP</option>
+        <option>Bihar</option>
       </select>
     </div>
     <div class="form-group col-md-2">
       <label for="inputZip">Zip</label>
-      <input type="text" class="form-control" id="inputZip" />
+      <input
+        type="text"
+        class="form-control"
+        name="zip"
+        value="zip"
+        [(ngModel)]="addDetails.zip"
+        maxlength="6"
+      />
     </div>
   </div>
-  <div class="form-group">
-    <div class="form-check">
-      <a href="#">
-        <label class="form-check-label" for="gridCheck">
-          Forget Password?</label
-        ></a
-      >
-    </div>
-  </div>
+
   <button type="submit" class="btn btn-primary">Sign in</button>
-</form>
+</form> -->

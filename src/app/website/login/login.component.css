@@ -1,3 +1,7 @@
 form {
   margin: 30px;
 }
+button a {
+  color: white;
+  text-decoration: none;
+}

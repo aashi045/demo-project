@@ -1,30 +1,114 @@
-<form>
-  <div class="form-group">
+<div class="container-fluid">
+  <div class="alert alert-warning" *ngIf="invalidLogin">{{ errorMessage }}</div>
+  <form #loginUser="ngForm" (ngSubmit)="userLogin(loginUser)" novalidate>
+    <!-- <div class="form-group">
     <h1>Login Page</h1>
-    <label for="exampleInputEmail1">Email address</label>
-    <input
-      type="email"
-      class="form-control"
-      id="exampleInputEmail1"
-      aria-describedby="emailHelp"
-      placeholder="Enter email"
-    />
-    <small id="emailHelp" class="form-text text-muted"
-      >We'll never share your email with anyone else.</small
-    >
+    <div class="form-row">
+      <div class="form-group">
+        <label for="exampleInputEmail1">Email address</label>
+        <input
+          type="email"
+          class="form-control"
+          id="exampleInputEmail1"
+          aria-describedby="emailHelp"
+          placeholder="Enter email"
+          name="email"
+          value="email"
+          [(ngModel)]="loginUser.email"
+          #email="ngModel"
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+          [class.is-invalid]="email.invalid && email.touched"
+        />
+        <div *ngIf="email.errors && (email.invalid || email.touched)">
+          <small class="text-danger" *ngIf="email.errors.required"
+            >Email is required</small
+          >
+          <small class="text-danger" *ngIf="email.errors.pattern"
+            >Enter valid email</small
+          >
+        </div>
+        <small id="emailHelp" class="form-text text-muted"
+          >We'll never share your email with anyone else.</small
+        >
+      </div>
+    </div>
   </div>
   <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input
-      type="password"
-      class="form-control"
-      id="exampleInputPassword1"
-      placeholder="Password"
-    />
+    <div class="form-check">
+      <a href="#" routerLink="../reset-password">
+        <label class="form-check-label" for="gridCheck">
+          Forget Password?</label
+        ></a
+      >
+    </div>
   </div>
-  <div class="form-check">
-    <input type="checkbox" class="form-check-input" id="exampleCheck1" />
-    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-  </div>
-  <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+
+  <button type="submit" class="btn btn-primary m-2">Submit</button>
+  <button type="submit" class="btn btn-primary m-2">
+    <a routerLink="../signup">Sign Up</a>
+  </button> -->
+    <h1>Login Page</h1>
+
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label for="inputEmail4">Email</label>
+        <input
+          type="email"
+          name="email"
+          value="email"
+          [(ngModel)]="loginUser.email"
+          class="form-control"
+          placeholder="Email"
+          required
+          email
+          #email="ngModel"
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+          [class.is-invalid]="email.invalid && email.touched"
+        />
+
+        <div *ngIf="email.errors && (email.invalid || email.touched)">
+          <small class="text-danger" *ngIf="email.errors.required"
+            >Email is required</small
+          >
+          <small class="text-danger" *ngIf="email.errors.pattern"
+            >Enter valid email</small
+          >
+        </div>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <label for="inputPassword4">Password</label>
+        <input
+          type="password"
+          name="password"
+          value="Password"
+          [(ngModel)]="loginUser.password"
+          class="form-control"
+          placeholder="Password"
+          required
+          #password="ngModel"
+          [class.is-invalid]="password.invalid && password.touched"
+        />
+        <small [class.d-none]="password.valid || password.untouched"
+          >Password is Required</small
+        >
+      </div>
+    </div>
+    <!-- <div class="form-row">
+      <div class="form-group">
+        <div class="form-check">
+          <a href="#" routerLink="../reset-password">
+            <label class="form-check-label" for="gridCheck">
+              Forget Password?</label
+            ></a
+          >
+        </div>
+      </div>
+    </div> -->
+    <button type="submit" class="btn btn-primary m-2">Login</button>
+    <button type="submit" class="btn btn-primary m-2">
+      <a routerLink="../signup">Sign Up</a>
+    </button>
+  </form>
+</div>
