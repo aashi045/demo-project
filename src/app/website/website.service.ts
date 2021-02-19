@@ -11,19 +11,13 @@ export class WebsiteService {
   constructor(private http: HttpClient) {}
 
   createUser(user): Observable<SignupDetails> {
-    return this.http.post<SignupDetails>(
-      'http://13.233.89.19:89/api/User',
-      user
-    );
+    return this.http.post<SignupDetails>(this.apiurl + 'User', user);
   }
   login(user): Observable<loginDetails> {
     return this.http.post<loginDetails>(this.apiurl + 'login', user);
   }
 
   password(user): Observable<ChangePassword> {
-    return this.http.put<ChangePassword>(
-      'http://13.233.89.19:89/api/User',
-      user
-    );
+    return this.http.put<ChangePassword>(this.apiurl + 'User', user);
   }
 }
