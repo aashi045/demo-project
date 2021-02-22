@@ -1,114 +1,97 @@
-<div class="container-fluid">
-  <div class="alert alert-warning" *ngIf="invalidLogin">{{ errorMessage }}</div>
-  <form #loginUser="ngForm" (ngSubmit)="userLogin(loginUser)" novalidate>
-    <!-- <div class="form-group">
-    <h1>Login Page</h1>
-    <div class="form-row">
-      <div class="form-group">
-        <label for="exampleInputEmail1">Email address</label>
-        <input
-          type="email"
-          class="form-control"
-          id="exampleInputEmail1"
-          aria-describedby="emailHelp"
-          placeholder="Enter email"
-          name="email"
-          value="email"
-          [(ngModel)]="loginUser.email"
-          #email="ngModel"
-          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
-          [class.is-invalid]="email.invalid && email.touched"
-        />
-        <div *ngIf="email.errors && (email.invalid || email.touched)">
-          <small class="text-danger" *ngIf="email.errors.required"
-            >Email is required</small
-          >
-          <small class="text-danger" *ngIf="email.errors.pattern"
-            >Enter valid email</small
-          >
-        </div>
-        <small id="emailHelp" class="form-text text-muted"
-          >We'll never share your email with anyone else.</small
-        >
+<body>
+  <div class="container">
+    <div class="alert alert-warning" *ngIf="invalidLogin">
+      {{ errorMessage }}
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <img src="../../../assets/images/undraw_remotely_2j6y.svg" />
+      </div>
+      <div class="col-md-6">
+        <form #loginUser="ngForm" (ngSubmit)="userLogin(loginUser)" novalidate>
+          <h1>Sign up</h1>
+          <div class="form-section">
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <i class="fa fa-envelope-square"></i>
+                <!-- <label for="inputEmail4">Email</label> -->
+                <input
+                  type="email"
+                  name="email"
+                  value="email"
+                  [(ngModel)]="loginUser.email"
+                  class="form-control"
+                  placeholder="Email"
+                  required
+                  email
+                  #email="ngModel"
+                  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+                  [class.is-invalid]="email.invalid && email.touched"
+                />
+                <div
+                  *ngIf="
+                    email.invalid && (loginUser.submitted || email.touched)
+                  "
+                  class="alert alert-danger"
+                >
+                  <div *ngIf="email.errors.required">Email is required.</div>
+                  <div *ngIf="email.errors.pattern">
+                    Enter Valid Email Address
+                  </div>
+                </div>
+                <!-- <div *ngIf="email.errors && (email.invalid || email.touched)">
+              <small class="text-danger" *ngIf="email.errors.required"
+                >Email is required</small
+              >
+              <small class="text-danger" *ngIf="email.errors.pattern"
+                >Enter valid email</small
+              >
+            </div> -->
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-12">
+                <!-- <label for="inputPassword4">Password</label> -->
+                <i class="fa fa-lock" aria-hidden="true"></i>
+                <input
+                  type="password"
+                  name="password"
+                  value="Password"
+                  [(ngModel)]="loginUser.password"
+                  class="form-control"
+                  placeholder="Password"
+                  required
+                  #password="ngModel"
+                  [class.is-invalid]="password.invalid && password.touched"
+                />
+                <!-- <small [class.d-none]="password.valid || password.untouched"
+              >Password is Required</small
+            > -->
+                <div
+                  *ngIf="
+                    password.invalid &&
+                    (loginUser.submitted || password.touched)
+                  "
+                  class="alert alert-danger"
+                >
+                  <div *ngIf="password.errors.required">
+                    Password is required.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary col-md-12">
+              Login
+            </button>
+            <div class="col-md-12 link">
+              <a routerLink="../signup">Create a new account!</a>
+            </div>
+            <!-- <button type="submit" class="btn btn-primary m-2">
+              <a routerLink="../signup">Sign Up</a>
+            </button> -->
+          </div>
+        </form>
       </div>
     </div>
   </div>
-  <div class="form-group">
-    <div class="form-check">
-      <a href="#" routerLink="../reset-password">
-        <label class="form-check-label" for="gridCheck">
-          Forget Password?</label
-        ></a
-      >
-    </div>
-  </div>
-
-  <button type="submit" class="btn btn-primary m-2">Submit</button>
-  <button type="submit" class="btn btn-primary m-2">
-    <a routerLink="../signup">Sign Up</a>
-  </button> -->
-    <h1>Login Page</h1>
-
-    <div class="form-row">
-      <div class="form-group col-md-12">
-        <label for="inputEmail4">Email</label>
-        <input
-          type="email"
-          name="email"
-          value="email"
-          [(ngModel)]="loginUser.email"
-          class="form-control"
-          placeholder="Email"
-          required
-          email
-          #email="ngModel"
-          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
-          [class.is-invalid]="email.invalid && email.touched"
-        />
-
-        <div *ngIf="email.errors && (email.invalid || email.touched)">
-          <small class="text-danger" *ngIf="email.errors.required"
-            >Email is required</small
-          >
-          <small class="text-danger" *ngIf="email.errors.pattern"
-            >Enter valid email</small
-          >
-        </div>
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group col-md-12">
-        <label for="inputPassword4">Password</label>
-        <input
-          type="password"
-          name="password"
-          value="Password"
-          [(ngModel)]="loginUser.password"
-          class="form-control"
-          placeholder="Password"
-          required
-          #password="ngModel"
-          [class.is-invalid]="password.invalid && password.touched"
-        />
-        <small [class.d-none]="password.valid || password.untouched"
-          >Password is Required</small
-        >
-      </div>
-    </div>
-    <!-- <div class="form-row">
-      <div class="form-group">
-        <div class="form-check">
-          <a href="#" routerLink="../reset-password">
-            <label class="form-check-label" for="gridCheck">
-              Forget Password?</label
-            ></a
-          >
-        </div>
-      </div>
-    </div> -->
-    <button type="submit" class="btn btn-primary m-2">Login</button>
-    <button type="submit" class="btn btn-primary m-2">
-      <a routerLink="../signup">Sign Up</a>
-    </button>
-  </form>
-</div>
+</body>

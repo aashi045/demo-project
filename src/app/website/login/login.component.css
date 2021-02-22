@@ -1,7 +1,81 @@
-form {
-  margin: 30px;
+.form-section {
+  margin-top: 30px;
 }
-button a {
+button {
+  margin-top: 30px !important;
+}
+/* button a {
   color: white;
   text-decoration: none;
+} */
+.form-group {
+  margin: 0px !important;
+}
+a {
+  text-decoration: none;
+}
+.link {
+  margin-top: 30px;
+  text-align: center;
+}
+img {
+  max-width: 100%;
+  height: 380px;
+}
+.container {
+  margin-top: 80px;
+}
+i {
+  position: relative;
+  top: 30px;
+  left: 6px;
+}
+
+input {
+  width: 100%;
+  display: block;
+  border: none;
+  background: none;
+  border-bottom: 1px solid #999;
+  padding: 6px 30px;
+  font-family: Poppins;
+  box-sizing: border-box;
+}
+input::-webkit-input-placeholder {
+  color: #999;
+}
+input::-moz-placeholder {
+  color: #999;
+}
+input:-ms-input-placeholder {
+  color: #999;
+}
+input:-moz-placeholder {
+  color: #999;
+}
+input:focus {
+  border: none;
+  border-bottom: 1px solid #222;
+}
+input:focus::-webkit-input-placeholder {
+  color: #222;
+}
+input:focus::-moz-placeholder {
+  color: #222;
+}
+input:focus:-ms-input-placeholder {
+  color: #222;
+}
+input:focus:-moz-placeholder {
+  color: #222;
+}
+
+.alert-danger {
+  background-color: transparent;
+  height: 20px;
+  font-size: 12px;
+  border: none;
+  position: relative;
+  left: -10px;
+  color: red;
 }
