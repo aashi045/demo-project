@@ -8,6 +8,7 @@ import { environment } from '../../environments/environment.prod';
 })
 export class WebsiteService {
   public apiurl = environment.apiUrl;
+  public image = environment.imageUrl;
   constructor(private http: HttpClient) {}
 
   createUser(user): Observable<SignupDetails> {
